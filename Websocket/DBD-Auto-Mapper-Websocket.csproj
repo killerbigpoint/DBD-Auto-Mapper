@@ -6,6 +6,7 @@
     <RootNamespace>DBD_Auto_Mapper_Websocket</RootNamespace>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
   </PropertyGroup>
 
   <ItemGroup>

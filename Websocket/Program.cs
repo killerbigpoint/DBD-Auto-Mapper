@@ -6,8 +6,13 @@
 
         static void Main(string[] args)
         {
-            server = new WebsocketListener();
+            server = new WebsocketListener(7788);
             server.Initialize();
+
+            while (server.IsRunning() == true)
+            {
+                Console.ReadKey();
+            }
         }
     }
 }
