@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35825.156 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBD-Auto-Mapper-Websocket", "DBD-Auto-Mapper-Websocket.csproj", "{A84A6B15-15CD-4ACB-AEDB-5D8C44881E6F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A84A6B15-15CD-4ACB-AEDB-5D8C44881E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A84A6B15-15CD-4ACB-AEDB-5D8C44881E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A84A6B15-15CD-4ACB-AEDB-5D8C44881E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A84A6B15-15CD-4ACB-AEDB-5D8C44881E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B8604B65-398C-4A02-9D16-EEAB0098A570}
+	EndGlobalSection
+EndGlobal
