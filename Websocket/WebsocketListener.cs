@@ -4,14 +4,14 @@ using System.Text;
 
 namespace DBD_Auto_Mapper_Websocket
 {
-    class WebsocketListener
+    class WebSocketListener
     {
         private readonly HttpListener listener;
         private bool shouldRun;
 
         private int count = 0;
 
-        public WebsocketListener(int port)
+        public WebSocketListener(int port)
         {
             shouldRun = false;
 
@@ -99,20 +99,18 @@ namespace DBD_Auto_Mapper_Websocket
                     if (receiveResult.MessageType == WebSocketMessageType.Close)
                     {
                         await webSocket.CloseAsync(WebSocketCloseStatus.NormalClosure, "", CancellationToken.None);
-
                         continue;
                     }
                     else if (receiveResult.MessageType == WebSocketMessageType.Text)
                     {
                         await webSocket.CloseAsync(WebSocketCloseStatus.InvalidMessageType, "Cannot accept text frame", CancellationToken.None);
-
                         continue;
                     }
 
                     //await webSocket.SendAsync(new ArraySegment<byte>(receiveBuffer, 0, receiveResult.Count), WebSocketMessageType.Binary, receiveResult.EndOfMessage, CancellationToken.None);
 
                     string text = Encoding.ASCII.GetString(receiveBuffer, 0, receiveResult.Count);
-                    LogGame($"Received -> {text}");
+                    LogClient($"Received -> {text}");
                 }
             }
             catch (Exception e)
@@ -129,14 +127,14 @@ namespace DBD_Auto_Mapper_Websocket
 
         // ----- Helpers ----- \\
 
-        private void LogServer(string text)
+        private static void LogServer(string text)
         {
             Console.WriteLine($"[Server] {text}");
         }
 
-        private void LogGame(string text)
+        private static void LogClient(string text)
         {
-            Console.WriteLine($"[Game] {text}");
+            Console.WriteLine($"[Client] {text}");
         }
     }
 }
