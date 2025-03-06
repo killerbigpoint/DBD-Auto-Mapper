@@ -9,8 +9,6 @@ namespace DBD_Auto_Mapper_Websocket
         private readonly HttpListener listener;
         private bool shouldRun;
 
-        private int count = 0;
-
         public WebSocketListener(int port)
         {
             shouldRun = false;
@@ -63,13 +61,9 @@ namespace DBD_Auto_Mapper_Websocket
         private async void ProcessRequest(HttpListenerContext listenerContext)
         {
             WebSocketContext webSocketContext;
-
             try
             {
                 webSocketContext = await listenerContext.AcceptWebSocketAsync(subProtocol: null);
-                Interlocked.Increment(ref count);
-
-                LogServer($"Processed: {count}");
             }
             catch (Exception e)
             {
@@ -81,11 +75,13 @@ namespace DBD_Auto_Mapper_Websocket
             }
 
             WebSocket webSocket = webSocketContext.WebSocket;
-            ProcessClient(webSocket);
+            ProcessClient(listenerContext, webSocket);
         }
 
-        private async void ProcessClient(WebSocket webSocket)
+        private async void ProcessClient(HttpListenerContext listenerContext, WebSocket webSocket)
         {
+            LogServer($"Client connected -> {listenerContext.Request.UserHostAddress}");
+
             // Receive buffer
             byte[] receiveBuffer = new byte[1024];
 
@@ -113,16 +109,29 @@ namespace DBD_Auto_Mapper_Websocket
                     LogClient($"Received -> {text}");
                 }
             }
+            catch (WebSocketException e)
+            {
+                if (e.InnerException is HttpListenerException ex && ex.ErrorCode == 995)
+                {
+                    LogServer($"Client closed websocket");
+                }
+                else
+                {
+                    LogServer($"Http Exception: {e.Message}");
+                }
+            }
             catch (Exception e)
             {
                 // Just log any exceptions to the console. Pretty much any exception that occurs when calling `SendAsync`/`ReceiveAsync`/`CloseAsync` is unrecoverable in that it will abort the connection and leave the `WebSocket` instance in an unusable state.
-                LogServer($"Exception: {e}");
+                LogServer($"General Exception: {e}");
             }
             finally
             {
                 // Clean up by disposing the WebSocket once it is closed/aborted.
                 webSocket?.Dispose();
             }
+
+            LogServer($"Client disconnected -> {listenerContext.Request.UserHostAddress}");
         }
 
         // ----- Helpers ----- \\
